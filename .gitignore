@@ -1,0 +1,4 @@
+node_modules/
+dist/
+# Original game source, fetched locally for reference and differential tests only. Not redistributed.
+.original/
