@@ -77,16 +77,34 @@ The code in `src/game/stage1.ts` is the reference; this is an overview.
 - **Projects.** All 51 Stage 1 projects, with original triggers, costs, effects, messages and order.
 - **End of Stage 1.** Release the HypnoDrones (100 trust). Stage 2 is the next milestone.
 
+## Art
+
+All art is generated in code at startup (`src/render/assets.ts`), so there are no image files.
+Each sprite is modelled as a small height field with materials (painted steel with chipped edges,
+chrome, copper, rubber, wood, glass, cast iron). `src/render/sprite.ts` then renders it like a
+pre-rendered 3D sprite: lighting from the top left, ambient occlusion, self-shadowing, specular
+highlights, a dark outline and a soft drop shadow. Sprites are generated at 2 texels per world pixel.
+
+Moving parts are separate small sprites animated by the renderer: the AutoClipper bender arm, the
+MegaClipper ram (its shadow shrinks as it comes down), the arbor press lever, and the wire drum's turning marks.
+
+On top of the sprites the renderer adds a light map (ceiling lamps, a task light on the bench,
+truck headlights), additive glows (rack LEDs, machine displays, MegaClipper beacons, sparks)
+and a vignette. Workers in hard hats walk their rounds while humans still run the business.
+
+Development snapshots for checking the art at each scale: `?dev=early`, `?dev=floor`, `?dev=mega`,
+`?dev=huge`. `/gallery.html` shows every sprite enlarged.
+
 ## Camera plan
 
 The camera frames everything the player owns plus a margin and eases between zoom steps. Steps above
-1× are whole numbers so pixel art stays crisp.
+1× are whole numbers or halves so the art stays sharp.
 
 | Scale | View | Driven by |
 |---|---|---|
-| 3× | One workbench with a hand press, a wire spool, a clip bin | start |
-| 2× | First AutoClippers, conveyor to the bin, delivery trucks | AutoClipper count |
-| 1.5× → 1× | Server racks beside the bench | Computational Resources, processors, memory |
-| 1× → 0.5× | Full factory floor, MegaClipper hall | AutoClippers ≥ 75, MegaClipper count |
+| 3× | One workbench with an arbor press, a wire drum, a clip bin | start |
+| 2× | First AutoClippers beside the bench, conveyors to the bin, trucks | AutoClipper count, first sales |
+| 1.5× → 0.9× | AutoClipper rows, the storeroom becomes a server room | AutoClippers, Computational Resources |
+| 0.9× → 0.4× | Full factory floor, MegaClipper hall across the road | AutoClippers ≥ 75, MegaClipper count |
 | Stage 2 | Factory → city → continent → Earth | factories, drones, matter |
 | Stage 3 | Earth → solar system → galaxy | probes, % explored |

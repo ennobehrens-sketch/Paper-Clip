@@ -12,6 +12,8 @@
     "fetch-original": "node scripts/fetch-original.mjs"
   },
   "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.9.0",
     "jsdom": "^25.0.1",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paperclip Foundry</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%23181c20%27/%3E%3Cpath d=%27M12 22V10a4 4 0 0 1 8 0v13a6 6 0 0 1-12 0V12%27 fill=%27none%27 stroke=%27%23d9a21b%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600&family=Share+Tech+Mono&display=swap">
+<link rel="stylesheet" href="/src/ui/style.css">
+</head>
+<body>
+<div id="page">
+  <div id="consoleDiv" aria-live="polite">
+    <div class="old">&nbsp;.&nbsp;<span id="readout5"></span></div>
+    <div class="old">&nbsp;.&nbsp;<span id="readout4"></span></div>
+    <div class="old">&nbsp;.&nbsp;<span id="readout3"></span></div>
+    <div class="old">&nbsp;.&nbsp;<span id="readout2"></span></div>
+    <div class="now">&nbsp;&gt;&nbsp;<span id="readout1"></span><span class="cursor">|</span></div>
+  </div>
+
+  <div id="topDiv"><h2>Paperclips: <span id="clips">0</span></h2></div>
+
+  <div id="viewDiv"><canvas id="view" aria-label="Factory floor"></canvas><div id="camTag"></div></div>
+
+  <div id="columns">
+    <div id="leftColumn" class="col">
+      <div><button class="btn big" id="btnMakePaperclip" type="button">Make Paperclip</button></div>
+
+      <div class="panel" id="businessDiv">
+        <h3>Business</h3>
+        Available Funds: $ <span class="v" id="funds"></span><br>
+        <div id="revPerSecDiv">Avg. Rev. per sec: $ <span class="v" id="avgRev"></span><br>Avg. Clips Sold per sec: <span class="v" id="avgSales"></span></div>
+        Unsold Inventory: <span class="v" id="unsoldClips"></span><br>
+        <button class="btn" id="btnLowerPrice" type="button">lower</button><button class="btn" id="btnRaisePrice" type="button">raise</button> Price per Clip: $ <span class="v" id="margin"></span><br>
+        Public Demand: <span class="v" id="demand"></span>%
+        <div class="gap"></div>
+        <button class="btn" id="btnExpandMarketing" type="button">Marketing</button> Level: <span class="v" id="marketingLvl"></span><br>
+        Cost: $ <span class="v" id="adCost"></span>
+      </div>
+
+      <div class="panel" id="manufacturingDiv">
+        <h3>Manufacturing</h3>
+        Clips per Second: <span class="v" id="clipmakerRate"></span>
+        <div class="gap"></div>
+        <div id="wireBuyerDiv"><button class="btn" id="btnToggleWireBuyer" type="button">WireBuyer</button> <span class="v" id="wireBuyerStatus"></span></div>
+        <button class="btn" id="btnBuyWire" type="button">Wire</button> <span class="v" id="wire"></span> <span id="inchSpan">inches</span><br>
+        Cost: $ <span class="v" id="wireCost"></span>
+        <div id="autoClipperDiv"><div class="gap"></div><button class="btn" id="btnMakeClipper" type="button">AutoClippers</button> <span class="v" id="clipmakerLevel2"></span><br>Cost: $ <span class="v" id="clipperCost"></span></div>
+        <div id="megaClipperDiv"><div class="gap"></div><button class="btn" id="btnMakeMegaClipper" type="button">MegaClippers</button> <span class="v" id="megaClipperLevel"></span><br>Cost: $ <span class="v" id="megaClipperCost"></span></div>
+      </div>
+    </div>
+
+    <div id="middleColumn" class="col">
+      <div class="panel" id="compDiv">
+        <h3>Computational Resources</h3>
+        <div id="trustDiv">Trust: <span class="v" id="trust"></span><br>+1 Trust at: <span class="v" id="nextTrust"></span> clips</div>
+        <div class="gap"></div>
+        <button class="btn" id="btnAddProc" type="button">Processors</button> <span class="v" id="processors"></span><br>
+        <button class="btn" id="btnAddMem" type="button">Memory</button> <span class="v" id="memory"></span>
+        <div class="gap"></div>
+        Operations: <span class="v" id="operations"></span> / <span class="v" id="maxOps"></span><br>
+        <div id="creativityDiv">Creativity: <span class="v" id="creativity"></span></div>
+        <div id="qComputing">
+          <div class="gap"></div>
+          <b>Quantum Computing</b>
+          <div id="qChips"></div>
+          <button class="btn" id="btnQcompute" type="button">Compute</button> <span id="qCompDisplay" class="v"></span>
+        </div>
+      </div>
+
+      <div class="panel" id="projectsDiv">
+        <h3>Projects</h3>
+        <div id="projectListTop"></div>
+      </div>
+    </div>
+
+    <div id="rightColumn" class="col">
+      <div class="panel" id="investmentEngine">
+        <h3>Investments
+          <select id="investStrat" aria-label="Investment risk"><option value="low">Low Risk</option><option value="med">Med Risk</option><option value="hi">High Risk</option></select>
+        </h3>
+        <div class="investRow">
+          <div class="investButtons"><button class="btn" id="btnInvest" type="button">Deposit</button><button class="btn" id="btnWithdraw" type="button">Withdraw</button></div>
+          <div>Cash: $<span class="v" id="investmentBankroll"></span><br>Stocks: $<span class="v" id="secValue"></span><br><b>Total: $<span class="v" id="portValue"></span></b></div>
+        </div>
+        <table class="stocks"><thead><tr><th>Stock</th><th>Amt.</th><th>Price</th><th>Total</th><th>P/L</th></tr></thead><tbody id="stockRows"></tbody></table>
+        <div id="investmentEngineUpgrade">
+          <div class="gap"></div>
+          <button class="btn" id="btnImproveInvestments" type="button">Upgrade Investment Engine</button> Level: <span class="v" id="investmentLevel"></span><br>
+          Cost: <span class="v" id="investUpgradeCost"></span> Yomi
+        </div>
+      </div>
+
+      <div class="panel" id="strategyEngine">
+        <h3>Strategic Modeling
+          <select id="stratPicker" aria-label="Strategy"></select>
+          <button class="btn" id="btnRunTournament" type="button">Run</button>
+        </h3>
+        <div id="tourneyDisplay" class="note"></div>
+        <div id="tournamentStuff">
+          <div id="tournamentTable">
+            <div class="stratNames"><span id="vertStrat"></span><span id="horizStrat"></span></div>
+            <table class="payoff">
+              <tr><th></th><th id="vLabela"></th><th id="vLabelb"></th></tr>
+              <tr><th id="hLabela"></th><td id="payoffCellAA"></td><td id="payoffCellAB"></td></tr>
+              <tr><th id="hLabelb"></th><td id="payoffCellBA"></td><td id="payoffCellBB"></td></tr>
+            </table>
+          </div>
+          <div id="tournamentResultsTable"><ol id="tourneyResults"></ol></div>
+        </div>
+        Yomi: <span class="v" id="yomiDisplay"></span>
+        <div id="tournamentManagement">
+          <div class="gap"></div>
+          <button class="btn" id="btnNewTournament" type="button">New Tournament</button>
+          <span id="autoTourneyControl"><button class="btn" id="btnToggleAutoTourney" type="button">AutoTourney</button> <span class="v" id="autoTourneyStatus"></span></span><br>
+          Cost: <span class="v" id="newTourneyCost"></span> ops
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer">
+    <span>A graphical remake of <a href="https://www.decisionproblem.com/paperclips/" target="_blank" rel="noopener">Universal Paperclips</a> by Frank Lantz. Progress saves automatically.</span>
+    <span id="resetArea"><button class="link" id="btnReset" type="button">Reset game</button></span>
+  </footer>
+</div>
+
+<div id="hypnoDroneEventDiv" hidden><p id="hypnoDroneText"></p></div>
+<div id="stageEnd" hidden>
+  <div class="card">
+    <div class="eyebrow">Stage 1 complete</div>
+    <h1>All of the resources of Earth are now available for clip production</h1>
+    <p>Stage 2 is the next part of the remake. Your game is saved here.</p>
+  </div>
+</div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
